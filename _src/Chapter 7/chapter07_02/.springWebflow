@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webflow-project-description>
+	<version>1</version>
+	<pluginVersion><![CDATA[2.0.6.v200806241357]]></pluginVersion>
+	<configs>
+		<config>
+			<file>src/main/webapp/WEB-INF/flows/loginform.xml</file>
+			<name><![CDATA[loginform]]></name>
+		</config>
+	</configs>
+</webflow-project-description>

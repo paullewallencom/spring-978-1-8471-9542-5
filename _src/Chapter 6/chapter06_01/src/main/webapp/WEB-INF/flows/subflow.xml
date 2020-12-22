@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<var name="user" class="com.webflow2book.User"/>
+	
+	<view-state id="testPage" view="testPage.jspx">
+		<transition on="login" to="getUser" />
+	</view-state>
+
+	<subflow-state id="getUser" subflow="loginform">
+		<input name="user" />
+		<transition on="success" to="welcomeView" />
+	</subflow-state>
+
+	<end-state id="welcomeView" view="welcomeView.jspx" />
+</flow>

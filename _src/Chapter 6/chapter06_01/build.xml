@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="login.flow" default="compile">
+	<description>
+        login.flow
+    </description>
+	<property file="loginflow.properties"/>
+
+	<path id="classpath">
+		<fileset dir="lib/">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="resolve"
+	 description="--> retrieve dependencies with ivy">
+			<ivy:retrieve />
+	</target>
+
+	<target name="init">
+		<mkdir dir="${build}" />
+		<mkdir dir="${build}/WEB-INF/classes" />
+	</target>
+
+	<target name="assemble-webapp" depends="init">
+		<copy todir="${build}" overwrite="y">
+			<fileset dir="${webapp-src}">
+				<include name="**/*/" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="compile" depends="assemble-webapp">
+		<javac srcdir="${src}" destdir="${build}/WEB-INF/classes">
+			<classpath refid="classpath" />
+		</javac>
+
+		<echo>Copying resources</echo>
+		
+		<copy todir="${build}/WEB-INF/classes" overwrite="y">
+			<fileset dir="${resources}">
+				<include name="**/*/" />
+			</fileset>
+		</copy>
+
+		<echo>Copying libs</echo>
+			
+		<copy todir="${build}/WEB-INF/lib" overwrite="y">
+			<fileset dir="lib/">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+	</target>
+</project>

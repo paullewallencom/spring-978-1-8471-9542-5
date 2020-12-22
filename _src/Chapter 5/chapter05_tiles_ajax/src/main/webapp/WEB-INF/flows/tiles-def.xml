@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="homepage" template="/WEB-INF/flows/homepage.jspx">
+		<put-attribute name="number" value="/WEB-INF/flows/emptyPage.jsp" />
+	</definition>
+	<definition name="getNumbers" template="/WEB-INF/flows/homepage.jspx">
+		<put-attribute name="number" value="/WEB-INF/flows/numberList.jsp" />
+	</definition>
+</tiles-definitions>

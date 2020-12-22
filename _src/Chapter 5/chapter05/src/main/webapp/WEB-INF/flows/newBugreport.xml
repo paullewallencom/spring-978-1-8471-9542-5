@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+     
+    <persistence-context />
+    
+    <var class="flowtrac.core.model.issue.Issue"
+    	name="issue" />
+    	
+	<var class="flowtrac.core.model.user.DBUser"
+		name="user" />
+
+	<view-state id="firstPage" model="issue" view="firstPage.jspx">
+		<transition on="next" to="secondPage" />
+	</view-state>
+
+	<view-state id="secondPage" model="user" view="secondPage.jspx">
+		<transition on="review" to="updateIssue" />
+	</view-state>
+
+	<action-state id="updateIssue">
+		<evaluate expression="issue.setCreatedBy(user)" />
+		<transition to="review" />
+	</action-state>
+
+	<view-state id="review" model="issue" view="review.jspx">
+		<transition on="finish" to="finish" />
+	</view-state>
+
+	<action-state id="saveBug">
+		<evaluate expression="persistenceContext.persist(issue)" />
+		<transition on="success" to="finish" />
+		<transition to="onError" />
+	</action-state>
+
+	<end-state id="finish" view="firstPage.jspx" commit="true" />
+	<end-state id="onError" view="errorPage.jspx" />
+
+</flow>

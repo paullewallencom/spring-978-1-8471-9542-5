@@ -1,0 +1,7 @@
+<ivy-module version="2.0">
+	<info organisation="com.webflow2book" module="changePassword.flow"/>
+	<dependencies>
+		<dependency org="org.springframework.security" name="spring-security-core" rev="2.0.4" />
+		<dependency org="org.springframework.security" name="spring-security-core-tiger" rev="2.0.4" />
+	</dependencies>
+</ivy-module>

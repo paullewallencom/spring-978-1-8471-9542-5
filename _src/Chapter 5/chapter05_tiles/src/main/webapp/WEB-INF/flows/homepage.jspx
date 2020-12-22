@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<jsp:root
+ 	xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:jsp="http://java.sun.com/JSP/Page"
+ 	xmlns:c="http://java.sun.com/jstl/core"
+ 	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:form="http://www.springframework.org/tags/form"
+	version="1.2">
+	<jsp:directive.page language="java"	
+		contentType="text/html; charset=ISO-8859-1" 
+		pageEncoding="ISO-8859-1" isELIgnored="false" />
+	<html>
+		<head>
+			<title>Hello Tiles</title>
+			
+			<style type="text/css">
+     			@import "${pageContext.request.contextPath}/resources/dijit/themes/tundra/tundra.css";
+     			@import "${pageContext.request.contextPath}/resources/dojo/resources/dojo.css";
+			</style>
+
+			<jsp:element name="script">
+				<jsp:attribute name="type">text/javascript</jsp:attribute>
+				<jsp:attribute name="src"><c:url value="/resources/dojo/dojo.js" /></jsp:attribute>
+				<jsp:body> </jsp:body>
+			</jsp:element>
+			<jsp:element name="script">
+				<jsp:attribute name="type">text/javascript</jsp:attribute>
+				<jsp:attribute name="src"><c:url value="/resources/spring/Spring.js" /></jsp:attribute>
+				<jsp:body> </jsp:body>
+			</jsp:element>
+			<jsp:element name="script">
+				<jsp:attribute name="type">text/javascript</jsp:attribute>
+				<jsp:attribute name="src"><c:url value="/resources/spring/Spring-Dojo.js" /></jsp:attribute>
+				<jsp:body> </jsp:body>
+			</jsp:element>
+		</head>
+		
+		<body class="tundra">
+			<h1>Hello Tiles!</h1>
+			<tiles:insertAttribute name="body" />
+			
+			<p><tiles:insertAttribute name="footer" /></p>
+		</body>
+	</html>
+</jsp:root>

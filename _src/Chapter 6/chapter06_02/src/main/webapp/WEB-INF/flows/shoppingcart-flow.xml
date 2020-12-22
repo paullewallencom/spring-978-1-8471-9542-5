@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+	
+	<var name="cart" class="com.webflow2book.ShoppingCart"/>
+	
+	<view-state id="homepage">
+		<transition on="order" to="shoppingCartContents" /> 
+	</view-state>
+	
+	<view-state id="shoppingCartContents">
+		<transition on="next" to="payment" />
+		<transition on="cancel" to="homepage" />
+	</view-state>
+
+	<view-state id="payment">
+		<transition on="next" to="checkValidPayment" />
+		<transition on="cancel" to="homepage" />
+	</view-state>
+	
+	<action-state id="checkValidPayment">
+		<evaluate expression="paymentservice.checkPayment(flowScope.chosenPaymentOption)" 
+			result="flowScope.paymentValid" result-type="boolean" />
+		<transition to="isValidPayment" />
+	</action-state>
+
+	<decision-state id="isValidPayment">
+		<if test="paymentValid == true" then="review" else="payment" />
+	</decision-state>
+
+	<view-state id="review">
+		<transition on="order" to="success" />
+		<transition on="cancel" to="homepage" />
+	</view-state> 
+
+	<end-state id="success"  />
+</flow>

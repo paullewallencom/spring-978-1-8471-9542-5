@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<jsp:root
+ 	xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:form="http://www.springframework.org/tags/form"
+	xmlns:c="http://java.sun.com/jstl/core"
+	version="1.2">
+	<jsp:directive.page language="java"	
+		contentType="text/html; charset=ISO-8859-1" 
+		pageEncoding="ISO-8859-1" isELIgnored="false"/>
+	<html>
+		<head>
+			<title>Spring JS Example Application</title>
+			<style type="text/css">
+     			@import "${pageContext.request.contextPath}/resources/dijit/themes/tundra/tundra.css";
+     			@import "${pageContext.request.contextPath}/resources/dojo/resources/dojo.css";
+			</style>
+
+			<jsp:element name="script">
+				<jsp:attribute name="type">text/javascript</jsp:attribute>
+				<jsp:attribute name="src"><c:url value="/resources/dojo/dojo.js" /></jsp:attribute>
+				<jsp:body> </jsp:body>
+			</jsp:element>
+			<jsp:element name="script">
+				<jsp:attribute name="type">text/javascript</jsp:attribute>
+				<jsp:attribute name="src"><c:url value="/resources/spring/Spring.js" /></jsp:attribute>
+				<jsp:body> </jsp:body>
+			</jsp:element>
+			<jsp:element name="script">
+				<jsp:attribute name="type">text/javascript</jsp:attribute>
+				<jsp:attribute name="src"><c:url value="/resources/spring/Spring-Dojo.js" /></jsp:attribute>
+				<jsp:body> </jsp:body>
+			</jsp:element>
+			
+		</head>
+		<body class="tundra">
+			<h1>Spring JS Example</h1>
+			<p>Please fill out the following form:</p>
+			<form action="doSomething.do" method="post">
+				<p>
+					<input type="text" id="dateField" />
+				</p>
+			</form>
+			<script type="text/javascript">
+				Spring.addDecoration(new Spring.ElementDecoration(
+				{
+					elementId: "dateField",
+					widgetType: "dijit.form.DateTextBox"
+				}));
+			</script>
+		</body>
+	</html>
+</jsp:root>

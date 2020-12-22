@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-2.0.xsd">
+           
+	<!-- Spring Security -->
+	
+	<bean id="simpleRightsVoter" class="com.webflow2book.SimpleRightsVoter" />
+	
+	<bean id="myAccessDecisionManager" class="org.springframework.security.vote.ConsensusBased">
+		<property name="decisionVoters">
+			<list>
+				<ref bean="simpleRightsVoter" />
+			</list>
+		</property>
+	</bean>
+
+	<security:http access-decision-manager-ref="myAccessDecisionManager" 
+		auto-config="true" />
+
+	<security:authentication-provider>
+		<security:jdbc-user-service data-source-ref="dataSource"  
+			users-by-username-query="select username, password, 1 as enabled from UserTable where username = ?"
+			authorities-by-username-query="select username, rights as authority from UserRights where username = ?"
+		/>
+	</security:authentication-provider>
+
+</beans>

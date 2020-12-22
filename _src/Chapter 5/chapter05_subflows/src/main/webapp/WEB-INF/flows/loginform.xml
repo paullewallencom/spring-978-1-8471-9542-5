@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+	<persistence-context />
+	
+	<var name="user" class="com.webflow2book.User"/>
+	
+	<view-state id="loginPage" model="user" view="loginPage.jspx">
+		<transition on="login" to="getUser" />
+	</view-state>
+
+	<action-state id="getUser">
+		<evaluate expression="userservice.getUserByUsername(user.username)"
+			result="flowScope.resultUser" />
+		<transition to="checkCredentials" />
+	</action-state>
+
+	<decision-state id="checkCredentials">
+		<if test="flowScope.resultUser == null" then="failedView" />
+		<if test="flowScope.resultUser.password.equals(user.password)"
+			then="updateUser" else="failedView" />
+	</decision-state>
+
+	<action-state id="updateUser">
+		<evaluate expression="flowScope.resultUser.setLastLogin(new java.util.Date())" />
+		<transition on="success" to="success" />
+		<transition to="failedView" />
+	</action-state>
+
+	<end-state id="success" commit="true" />
+	<end-state id="failedView" view="failedView.jspx" />
+
+</flow>

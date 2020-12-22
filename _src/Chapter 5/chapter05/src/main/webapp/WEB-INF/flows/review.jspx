@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<jsp:root
+ 	xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:form="http://www.springframework.org/tags/form"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	version="2.1">
+	<jsp:directive.page language="java"
+		contentType="text/html; charset=ISO-8859-1"
+		pageEncoding="ISO-8859-1" isELIgnored="false"/>
+    <html>
+        <head>
+            <style type="text/css">
+                @import "${pageContext.request.contextPath}/resources/dijit/themes/tundra/tundra.css";
+                @import "${pageContext.request.contextPath}/resources/dojo/resources/dojo.css";
+            </style>
+
+            <jsp:element name="script">
+                <jsp:attribute name="type">text/javascript</jsp:attribute>
+                <jsp:attribute name="src"><c:url value="/resources/dojo/dojo.js" /></jsp:attribute>
+                <jsp:body> </jsp:body>
+            </jsp:element>
+            <jsp:element name="script">
+                <jsp:attribute name="type">text/javascript</jsp:attribute>
+                <jsp:attribute name="src"><c:url value="/resources/spring/Spring.js" /></jsp:attribute>
+                <jsp:body> </jsp:body>
+            </jsp:element>
+            <jsp:element name="script">
+                <jsp:attribute name="type">text/javascript</jsp:attribute>
+                <jsp:attribute name="src"><c:url value="/resources/spring/Spring-Dojo.js" /></jsp:attribute>
+                <jsp:body> </jsp:body>
+            </jsp:element>
+
+            <title>Enter a new bugreport</title>
+        </head>
+
+        <body class="tundra">
+            <h1>Create a new issue (3)</h1>
+            <p>
+            Before you send the report, you can check if you entered the correct information:
+            </p>
+
+            <form:form method="post" modelAttribute="issue">
+                <table>
+                    <tr>
+                        <td>
+                            Title:
+                        </td>
+                        <td>
+                            <span><c:out value="${issue.name}" /></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Version:
+                        </td>
+                        <td>
+                            <span><c:out value="${issue.version}" /></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Description:
+                        </td>
+                        <td>
+                            <div>
+                                <c:out value="${issue.description}" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Severity:
+                        </td>
+                        <td>
+                            <span>
+                                <c:out value="${issue.severity}" />
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Fix until:
+                        </td>
+                        <td>
+                            <span>
+                                <fmt:formatDate pattern="MM/dd/yyyy" value="${issue.fixingDate}" />
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Your username:
+                        </td>
+                        <td>
+                            <span><c:out value="${issue.createdBy.username}" /></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email address:
+                        </td>
+                        <td>
+                            <span><c:out value="${issue.createdBy.email}" /></span>
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" name="_eventId_finish" value="Finish" />
+            </form:form>
+        </body>
+    </html>
+</jsp:root>
